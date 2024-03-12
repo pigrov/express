@@ -40,6 +40,7 @@ app.get(`/api/books`, (rq, rs) => {
         const { id } = rq.params;
         const book = books.filter((x) => x.id == id)[0];
 
+        !book && rs.status(404);
         rs.json(book || { result: "error", message: "book not found" });
     })
     .post(`/api/books`, (rq, rs) => {
@@ -48,6 +49,13 @@ app.get(`/api/books`, (rq, rs) => {
 
         rs.json(book);
     })
+    .post(`/api/user/login`, (rq, rs) => {
+        const book = Book(rq.body);
+        books.push(book);
+
+        rs.json({ id: 1, mail: "test@mail.ru" }).status(201);
+    })
+
     .put(`/api/books/`, (rq, rs) => {
         rs.json({ result: "error", message: "id must set" });
     })
@@ -64,6 +72,7 @@ app.get(`/api/books`, (rq, rs) => {
                     });
                 });
 
+        !book && rs.status(404);
         rs.json({ result: book ? "updated" : "book not found" });
     })
     .delete(`/api/books/`, (rq, rs) => {
@@ -74,5 +83,6 @@ app.get(`/api/books`, (rq, rs) => {
         const book = books.filter((x) => x.id == id)[0];
         book && (books = books.filter((x) => x.id != id));
 
+        !book && rs.status(404);
         rs.json({ result: book ? "success" : "book not found" });
     });
