@@ -14,7 +14,7 @@ const Book = (data) => {
         fileCover = ``,
         fileName = ``,
     } = data;
-    console.log(`Book`, title, description, authors, favorite, fileCover, fileName);
+
     const book = {
         id,
         title,
@@ -37,7 +37,6 @@ app.get(`/api/books`, (rq, rs) => {
     rs.json(books);
 })
     .get(`/api/books/:id`, (rq, rs) => {
-        console.log(rq.params, rq.body);
         const { id } = rq.params;
         const book = books.filter((x) => x.id == id)[0];
 
@@ -61,7 +60,6 @@ app.get(`/api/books`, (rq, rs) => {
                 .filter((x) => x.id == id)
                 .map((o) => {
                     Object.keys(rq.body).map((p) => {
-                        console.log(p);
                         o[p] = rq.body[p];
                     });
                 });
