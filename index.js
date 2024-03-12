@@ -10,7 +10,7 @@ const Book = (data) => {
         title = ``,
         description = ``,
         authors = ``,
-        favorite = 0,
+        favorite = false,
         fileCover = ``,
         fileName = ``,
     } = data;
